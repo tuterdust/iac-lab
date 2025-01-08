@@ -1,0 +1,32 @@
+- hosts: all
+  gather_facts: no
+  vars:
+    groups_limit: "{{ ansible_limit | replace(':localhost', '')  }}"
+  tasks:
+    - name: Add localhost to group
+      add_host:
+        name: localhost
+        groups:
+          - "{{ groups_limit }}"
+    - include_vars: inventory/group_vars/{{ groups_limit }}.yml
+
+- hosts: all:&localhost
+  gather_facts: no
+  pre_tasks:
+    - name: Generate tfvars file
+      template:
+        src: env.tfvars.j2
+        dest: "terraform/backendapp.auto.tfvars"
+      register: tfvars
+      delegate_to: localhost
+      check_mode: no
+
+  tasks:
+    - name: Provisioning instance
+      terraform:
+        project_path: "terraform/"
+        provider_upgrade: true
+        backend_config:
+        force_init: yes
+        state: present
+      delegate_to: localhost

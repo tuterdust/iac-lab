@@ -1,0 +1,4 @@
+machine_type: "e2-micro"
+machine_zone: "asia-southeast1-a"
+initialize_image: "debian-cloud/debian-11"
+owner_name: {"nuttapong-r"}
