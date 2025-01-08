@@ -1,7 +1,5 @@
 locals {
-  owner_email = "nuttapong.r@gmail.com"
-  #   owner_email = {PUT_YOUR_ENROLLED_EMAIL_HERE}
-  owner_name = replace(split("@", local.owner_email)[0], ".", "-")
+  owner_name = {OWNER_NAME}
 }
 
 resource "google_storage_bucket" "static_site" {

@@ -6,6 +6,7 @@
     let
       pkgs = import nixpkgs {
         inherit system;
+        config.allowUnfree = true; 
       };
       stdenv = pkgs.stdenv;
       lib = pkgs.lib;
@@ -14,6 +15,7 @@
         packages = with pkgs; [
           ansible
           opentofu
+          terraform
           google-cloud-sdk
         ];
       };
