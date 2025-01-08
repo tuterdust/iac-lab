@@ -24,7 +24,7 @@ resource "google_compute_instance" "backend_app" {
   }
 
   metadata = {
-    ssh-keys = "${var.owner_name}:${file("~/.ssh/lab_id_ed25519.pub")}"  # Replace your-username with your username
+    ssh-keys = "${var.owner_name}:${file("~/.ssh/id_rsa.pub")}"  # Replace your-username with your username
   }
 
   service_account {
