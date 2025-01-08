@@ -1,5 +1,5 @@
 data "google_service_account" "backend_compute" {
-  account_id = "backend-compute-nuttapong-r"
+  account_id = "backend-compute"
 }
 
 resource "google_compute_instance" "backend_app" {
@@ -11,7 +11,6 @@ resource "google_compute_instance" "backend_app" {
   boot_disk {
     initialize_params {
       image = var.initialize_image
-
     }
   }
 
@@ -24,7 +23,7 @@ resource "google_compute_instance" "backend_app" {
   }
 
   metadata = {
-    ssh-keys = "${var.owner_name}:${file("~/.ssh/id_rsa.pub")}"  # Replace your-username with your username
+    ssh-keys = "${var.owner_name}:${file(var.ssh_pub_key_path)}"
   }
 
   service_account {
@@ -32,7 +31,7 @@ resource "google_compute_instance" "backend_app" {
     scopes = ["cloud-platform"]
   }
 
-  labels = merge(var.default_labels,{
+  labels = merge(var.default_labels, {
     "owner" = var.owner_name
   })
 }

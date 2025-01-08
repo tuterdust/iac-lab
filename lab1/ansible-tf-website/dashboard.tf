@@ -1,3 +1,12 @@
+data "terraform_remote_state" "backend_app" {
+  backend = "local"
+
+  config = {
+    path = "./backend/terraform/terraform.tfstate"
+  }
+}
+
+
 resource "google_monitoring_dashboard" "compute_instance_dashboard" {
   dashboard_json = jsonencode({
     displayName = "Compute Instance Monitoring Dashboard - ${local.owner_name}"
@@ -11,7 +20,7 @@ resource "google_monitoring_dashboard" "compute_instance_dashboard" {
               {
                 timeSeriesQuery = {
                   timeSeriesFilter = {
-                    filter = "metric.type=\"compute.googleapis.com/instance/cpu/utilization\" AND resource.label.instance_id=\"<INSTANCE_ID>\""
+                    filter = "metric.type=\"compute.googleapis.com/instance/cpu/utilization\" AND resource.label.instance_id=\"${data.terraform_remote_state.backend_app.outputs.instance_id}\""
                     aggregation = {
                       alignmentPeriod = "60s"
                       perSeriesAligner = "ALIGN_MEAN"
@@ -36,7 +45,7 @@ resource "google_monitoring_dashboard" "compute_instance_dashboard" {
               {
                 timeSeriesQuery = {
                   timeSeriesFilter = {
-                    filter = "metric.type=\"compute.googleapis.com/instance/disk/read_ops_count\" AND resource.label.instance_id=\"<INSTANCE_ID>\""
+                    filter = "metric.type=\"compute.googleapis.com/instance/disk/read_ops_count\" AND resource.label.instance_id=\"${data.terraform_remote_state.backend_app.outputs.instance_id}\""
                     aggregation = {
                       alignmentPeriod = "60s"
                       perSeriesAligner = "ALIGN_RATE"
@@ -49,7 +58,7 @@ resource "google_monitoring_dashboard" "compute_instance_dashboard" {
               {
                 timeSeriesQuery = {
                   timeSeriesFilter = {
-                    filter = "metric.type=\"compute.googleapis.com/instance/disk/write_ops_count\" AND resource.label.instance_id=\"<INSTANCE_ID>\""
+                    filter = "metric.type=\"compute.googleapis.com/instance/disk/write_ops_count\" AND resource.label.instance_id=\"${data.terraform_remote_state.backend_app.outputs.instance_id}\""
                     aggregation = {
                       alignmentPeriod = "60s"
                       perSeriesAligner = "ALIGN_RATE"
@@ -79,7 +88,7 @@ resource "google_monitoring_dashboard" "compute_instance_dashboard" {
               {
                 timeSeriesQuery = {
                   timeSeriesFilter = {
-                    filter = "metric.type=\"compute.googleapis.com/instance/network/sent_bytes_count\" AND resource.label.instance_id=\"<INSTANCE_ID>\""
+                    filter = "metric.type=\"compute.googleapis.com/instance/network/sent_bytes_count\" AND resource.label.instance_id=\"${data.terraform_remote_state.backend_app.outputs.instance_id}\""
                     aggregation = {
                       alignmentPeriod = "60s"
                       perSeriesAligner = "ALIGN_RATE"
@@ -91,7 +100,7 @@ resource "google_monitoring_dashboard" "compute_instance_dashboard" {
               {
                 timeSeriesQuery = {
                   timeSeriesFilter = {
-                    filter = "metric.type=\"compute.googleapis.com/instance/network/received_bytes_count\" AND resource.label.instance_id=\"<INSTANCE_ID>\""
+                    filter = "metric.type=\"compute.googleapis.com/instance/network/received_bytes_count\" AND resource.label.instance_id=\"${data.terraform_remote_state.backend_app.outputs.instance_id}\""
                     aggregation = {
                       alignmentPeriod = "60s"
                       perSeriesAligner = "ALIGN_RATE"

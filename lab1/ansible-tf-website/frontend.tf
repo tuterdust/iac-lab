@@ -8,7 +8,7 @@ resource "google_storage_bucket" "static_site" {
   uniform_bucket_level_access = true
 
   website {
-    main_page_suffix = "simple.html"
+    main_page_suffix = "index.html"
     not_found_page   = "404.html"
   }
 

@@ -1,3 +1,6 @@
+gcp_project_id: "iac-lab-447109"
+gcp_region: "asia-southeast1"
+
 machine_type: "e2-micro"
 machine_zone: "asia-southeast1-a"
 initialize_image: "debian-cloud/debian-11"

@@ -8,6 +8,6 @@ terraform {
 }
 
 provider "google" {
-  project = "iac-lab-447109"
-  region  = "asia-southeast1"
+  project = var.gcp_project_id
+  region  = var.gcp_region
 }
