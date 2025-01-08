@@ -8,7 +8,7 @@
 
 ## Guidelines
 
-- Replace `{OWNER_NAME}` with your name or your identifier/alias, please be careful about double quote, check syntax carefully
+- Replace `{OWNER_NAME}` with your name or your identifier/alias (double quoted), check syntax carefully
 - For backend, install Ansible role using `ansible-galaxy install -r requirements.yaml`
 - Provision Compute Instance by running command
 
