@@ -25,3 +25,15 @@ Apply change
 ```ansible-playbook config-instance.yaml```
 
 - At project root directory (same directory as this README), run `tofu plan` to validate the change and then `tofu apply` to provision frontend static page and monitoring dashboard
+
+## Cleanup
+
+- At root directory, Run `tofu destroy` to delete frontend and dashboard resources.
+- At backend directory, run playbook to destroy Terraform resources
+
+Run preview change
+
+```ansible-playbook destroy-instance.yaml --diff --check```
+
+Destroy resources
+```ansible-playbook destroy-instance.yaml```

@@ -1,0 +1,11 @@
+- hosts: all:&localhost
+  gather_facts: no
+  tasks:
+    - name: Destroy instance
+      terraform:
+        project_path: "terraform/"
+        provider_upgrade: true
+        backend_config:
+        force_init: yes
+        state: absent
+      delegate_to: localhost
